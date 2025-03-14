@@ -4,7 +4,7 @@ Unofficial client for Microsoft's Xbox Cloud Gaming streaming service, providing
 
 ## Disclaimer
 
-This project and its contributors are not affiliated with Nvidia, nor it's GeForce NOW product. This repository does not contain any Nvidia / GeForce NOW software. It is simply an Electron wrapper that loads the official GFN web application page, just as it would in a regular web browser.
+This project and its contributors are not affiliated with Microsoft, nor it's Xbox Cloud product. This repository does not contain any Microsoft / Xbox Cloud Gaming software. It is simply an Electron wrapper that loads the official Xbox Cloud Gaming web application page, just as it would in a regular web browser.
 
 # Installation
 
