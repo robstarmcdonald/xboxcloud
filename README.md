@@ -1,6 +1,6 @@
 # About
 
-Unofficial client for Microsoft's Xbox Cloud Gaming streaming service, providing a native Linux desktop experince and some additional features such as Discord rich presence.
+Unofficial client for Microsoft's Xbox Cloud Gaming streaming service, providing a native Linux desktop experince, with Game Pass subscriptions to play games on Activision or EA Sports.
 
 ## Disclaimer
 
