@@ -12,10 +12,10 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Fetching the release package
-      run: wget "https://github.com/romactu/xboxcloud/releases/download/${{github.ref_name}}/geforcenow_${GITHUB_REF:11}_linux.snap" -O "geforcenow.snap"
+      run: wget "https://github.com/robstarmcdonald/xboxcloud/releases/download/${{github.ref_name}}/xboxcloud_${GITHUB_REF:11}_linux.snap" -O "xboxcloud.snap"
 
     - uses: snapcore/action-publish@v1
       with:
         store_login: ${{ secrets.SNAPCRAFT_LOGIN }}
-        snap: geforcenow.snap # ${{ steps.build.outputs.snap }}
+        snap: xboxcloud.snap # ${{ steps.build.outputs.snap }}
         release: stable

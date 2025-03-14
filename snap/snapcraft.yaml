@@ -1,0 +1,93 @@
+name: xboxcloud
+version: 1.0.0
+summary: Xbox Cloud Gaming (BETA)
+description: Xbox Cloud Gaming is a cloud gaming service as part of Xbox offered by Microsoft Gaming. Initially released in beta testing in November 2019, the service later launched for subscribers of Xbox Game Pass Ultimate on September 15, 2020. Xbox Game Pass cloud gaming is provided to subscribers of Ultimate at no additional cost. Xbox Cloud Gaming operates by linking the device to a remote server in the cloud. Stream games using an Xbox Cloud Gaming service.
+grade: stable
+confinement: strict
+base: core24
+
+architectures:
+  - build-on: amd64
+compression: lzo
+
+parts:
+  libraries:
+    plugin: nil
+    stage-packages:
+      - libxss1
+      - libvips42
+      - libsqlcipher0
+    prime:
+      - usr/lib/*/libXss*
+      - usr/lib/*/libvips*
+      - usr/lib/*/libsqlcipher*
+      - usr/lib/*/libIlm* #needed by libvips
+      - usr/lib/*/libMagick* #needed by libvips
+      - usr/lib/*/libcfitsio* #needed by libvips
+      - usr/lib/*/libcgif* #needed by libvips
+      - usr/lib/*/libexif* #needed by libvips
+      - usr/lib/*/libfftw3* #needed by libvips
+      - usr/lib/*/libgsf* #needed by libvips
+      - usr/lib/*/libheif* #needed by libvips
+      - usr/lib/*/libaec* #needed by libvips
+      - usr/lib/*/libimagequant* #needed by libvips
+      - usr/lib/*/libmatio* #needed by libvips
+      - usr/lib/*/libopenslide* #needed by libvips
+      - usr/lib/*/libwebpmux* #needed by libvips
+      - usr/lib/*/libHalf* #needed by libIlmImf
+      - usr/lib/*/libIex* #needed by libIlmImf
+      - usr/lib/*/libIm* #needed by libIlmImf
+      - usr/lib/*/liblqr* #needed by libMagickCore-6
+      - usr/lib/*/libaom* #needed by libheif
+      - usr/lib/*/libda* #needed by libheif
+      - usr/lib/*/libde* #needed by libheif
+      - usr/lib/*/libx265* #needed by libheif
+      - usr/lib/*/libnuma* #needed by libheif
+      - usr/lib/*/libhdf5* #needed by libmatio
+      - usr/lib/*/libsz* #needed by libhdf5
+
+  xboxcloud:
+    plugin: dump
+    source: dist
+    build-packages:
+      - npm
+    override-build: |
+      craftctl default
+      npm i -g corepack
+      corepack enable
+      yarn build
+      sed -i 's|Icon=xbox|Icon=${SNAP}/linux-unpacked/resources/app/icon.svg|' $SNAPCRAFT_PART_SRC/linux-unpacked/xbox.desktop
+    prime:
+      - linux-unpacked
+      - -*/chrome-sandbox
+      - -*/resources/app.asar.unpacked/node_modules/sharp/vendor/lib
+      - -*/resources/app.asar.unpacked/node_modules/sharp/vendor/include
+
+  cleanup:
+    after: [ xboxcloud ]
+    plugin: nil
+    build-snaps: [ gnome-46-2404 ]
+    override-prime: |
+        set -eux
+        cd /snap/gnome-46-2404/current
+        find . -type f,l -exec rm -f $SNAPCRAFT_PRIME/{} \;
+
+plugs:
+  shmem:
+    interface: shared-memory
+    private: true
+
+apps:
+  geforcenow:
+    extensions: [gnome]
+    desktop: linux-unpacked/xboxcloud.desktop
+    command: linux-unpacked/xboxcloud --use-tray-icon --no-sandbox --disable-seccomp-filter-sandbox
+    plugs:
+      - shmem
+      - network
+      - audio-playback
+      - audio-record
+      - joystick
+    environment:
+      GTK_USE_PORTAL: "1"
+      TMPDIR: $XDG_RUNTIME_DIR

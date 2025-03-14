@@ -1,0 +1,14 @@
+{
+  "name": "geforcenow",
+  "appId": "com.github.Romactu.${name}",
+  "productName": "Xbox Cloud Gaming",
+  "version": "1.10.0",
+  "description": "A Linux desktop web app for Xbox Cloud Gaming",
+  "main": "scripts/main.js",
+  "repository": "https://github.com/robstarmcdonald/xboxcloud",
+  "author": "Romactu <robstarmcdonald@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "discord-rich-presence": "^0.0.8"
+  }
+}
