@@ -8,7 +8,7 @@ This project and its contributors are not affiliated with Microsoft, nor it's Xb
 
 # Installation
 
-[![Get it from the Snap Store](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.png)](https://snapcraft.io/geforcenow)
+[![Get it from the Snap Store](https://raw.githubusercontent.com/snapcore/snap-store-badges/master/EN/%5BEN%5D-snap-store-white.png)](https://snapcraft.io/xboxcloud)
 
 
 # Usage
